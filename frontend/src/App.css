@@ -68,16 +68,12 @@
 }
 
 body{
-    background-image: linear-gradient(#41135e,#a13f99);
+    background-image: linear-gradient(#100D2A,#182052);
     background-repeat: no-repeat;
     font-family:'Roboto', sans-serif;
     color:#c4c5c7;
 }
 
-nav{
-    border-top-right-radius: 1rem;
-    border-top-left-radius: 1rem;
-}
 .dropBtn i{
     transition: all ease 0.2s;
 }
@@ -99,8 +95,8 @@ nav{
 .dropContent{
     display:none;
     position: absolute;
-    width:100%;
-    transform: translate(-8.5rem,0.05rem);
+    width:max-content;
+    transform: translateY(0.05rem);
     border-radius: 1rem;
     padding:2rem;
     transition: all ease 0.3s;

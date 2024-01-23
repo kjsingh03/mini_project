@@ -28,7 +28,7 @@ export const getAllQuiz= async (req,res,next)=>{
     try{
     const quizzes = await Quiz.find();
     if(!quizzes)
-        return res.status(404).json({ "Success": "False", "message": err.message })
+        return res.status(404).json({ "Success": "False", "message": "Quizzes not found" })
     res.status(200).json({ "Success": "True", "message": quizzes })
     }catch(err){
         res.status(404).json({ "Success": "False", "message": err.message })
@@ -39,7 +39,7 @@ export const updateQuiz= async (req,res,next)=>{
     try{
     const quiz = await Quiz.findOneAndUpdate({id:req.params.id},req.body,{returnDocument:"after"});
     if(!quiz)
-        return res.status(404).json({ "Success": "False", "message": err.message })
+        return res.status(404).json({ "Success": "False", "message": "Quiz not found" })
     res.status(200).json({ "Success": "True", "message": "Quiz updated successfully",quiz })
     }catch(err){
         res.status(404).json({ "Success": "False", "message": err.message })
@@ -50,7 +50,7 @@ export const deleteQuiz= async (req,res,next)=>{
     try{
     const quiz = await Quiz.findOneAndDelete({id:req.params.id},{returnDocument:"after"});
     if(!quiz)
-        return res.status(404).json({ "Success": "False", "message": err.message })
+        return res.status(404).json({ "Success": "False", "message": "Quiz not found" })
     res.status(200).json({ "Success": "True", "message": "Quiz deleted Successfully",quiz })
     }catch(err){
         res.status(404).json({ "Success": "False", "message": err.message })
