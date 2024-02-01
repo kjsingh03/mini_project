@@ -6,50 +6,64 @@ function Quiz() {
 
     const { id } = useParams()
 
-    const [quiz, setQuiz] = useState({});
     const [questions, setQuestions] = useState([])
     const [activeQues, setActiveQues] = useState({})
-    const [options, setOptions] = useState([])
     const [activeIndex, setActiveIndex] = useState(0);
 
     const getQuiz = async () => {
         let res = await axios.get(`http://localhost:5000/quiz/${id}`)
-        setQuiz(res.data.message)
         setQuestions(res.data.message.questions)
         setActiveQues(res.data.message.questions[activeIndex])
-        setOptions(res.data.message.questions[activeIndex].options)
     }
 
-    // console.log(options)
+    console.log()
 
-    const handleClick = (e) => {
+    const next = (e) => {
         e.preventDefault()
         if (activeIndex < 3) {
-            setActiveQues(questions[activeIndex+1])
-            setOptions(questions[activeIndex+1].options)
-            setActiveIndex(prev => prev + 1)
+            setActiveQues(questions[activeIndex + 1]);
+            setActiveIndex(prev => prev + 1);
+            document.querySelector(".option.active").classList.remove("active")
         }
     }
-    console.log(activeIndex)
+
+    const prev = (e) => {
+        e.preventDefault()
+        if (activeIndex > 0) {
+            setActiveQues(questions[activeIndex - 1]);
+            setActiveIndex(prev => prev - 1);
+            document.querySelector(".option.active").classList.remove("active")
+        }
+    }
+
+    const ActiveOption = (id) =>{
+        if(document.querySelector(".option.active"))
+            document.querySelector(".option.active").classList.remove("active")
+        document.getElementById(`${id}`).classList.add("active")
+    }
 
     useEffect(() => {
         getQuiz()
-    }, [])
+    }, [activeIndex])
 
     return (
-        <div className="p-12 flex flex-col gap-5 min-h-screen">
-            <h1 className="text-5xl">{quiz.topic}</h1>
-            <h6 className="text-xl">{activeQues.question}</h6>
-            <div className="p-2 border border-white">
+        <div className="flex flex-col gap-4 h-screen items-center w-[90%] mx-auto my-12">
+            <div className="bg-[var(--accent-color)] w-full p-8 rounded-xl">
+                <p className='flex items-center gap-6 text-2xl'><span className="text-6xl">Q </span> {activeQues.question}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-16 w-full p-8">
                 {
-                    options?.map((option, index) => (
-                        <p key={index}>{index + 1} : {option.option}</p>
-
+                    activeQues.options?.map((option,index) => (
+                        <div key={index} onClick={()=>ActiveOption(option._id)} id={option._id} className="option bg-[var(--accent-color)] cursor-pointer text-lg p-4 flex items-center justify-between gap-4 rounded-xl">
+                            <p className="bg-[var(--accent-sec-color)] text-2xl py-4 px-6 rounded-xl" >{index}</p>
+                            <p className="w-full ">{option.option}</p>
+                        </div>
                     ))
                 }
             </div>
-            <div className="w-full text-right">
-                <button className="border border-white p-2 cursor-pointer" onClick={handleClick}>Next <i className="fa-solid fa-chevron-right"></i></button>
+            <div className="flex w-full items-center justify-between mt-8">
+                <i onClick={prev} className="bg-[var(--accent-color)] border-2 border-white py-4 px-5 cursor-pointer rounded-[50%] text-white fa-solid fa-chevron-left"></i>
+                <i onClick={next} className="bg-[var(--accent-color)] border-2 border-white py-4 px-5 cursor-pointer rounded-[50%] text-white fa-solid fa-chevron-right"></i>
             </div>
         </div>
     )

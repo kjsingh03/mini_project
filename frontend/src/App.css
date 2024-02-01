@@ -1,107 +1,60 @@
 :root {
-    /* Color Scheme */
-    --primary-color: #fff; /* Main brand color */
-    --secondary-color: #f6a35b; /* Secondary color for contrast */
-    --accent-color: #eeeeee; /* Accent color for highlighting elements */
-    --background-color: #ffffff; /* Default background color */
-    --text-color: rgba(0, 0, 0, 0.84); /* Primary text color */
-    --text-secondary-color: #767676; /* Secondary text color */
-    --border-color: #e1e1e1; /* Default color for borders */
-    --error-color: #ff0033; /* Color used for error messages and icons */
-    --success-color: #28a745; /* Color used for success messages and icons */
-    --warning-color: #ffc107; /* Color used for warnings and cautionary messages */
-    --info-color: #17a2b8; /* Color used for informational messages */
-  
-    /* Typography */
-    --font-family: "Inter", sans-serif; /* Primary font family */
-    --font-size-root: 16px; /* Root font size (for rem calculations) */
-    --font-size-base: 1rem; /* Base font size for regular text */
-    --font-size-sm: 0.875rem; /* Small font size for less important text */
-    --font-size-lg: 1.25rem; /* Large font size for headings */
-    --font-size-xl: 1.5rem; /* Extra large font size for major headings */
-    --line-height-base: 1.5; /* Default line height */
-    --heading-font-family: "Helvetica Neue", sans-serif; /* Font family for headings */
-  
-    /* Spacing */
-    --spacing-xs: 0.25rem; /* Extra small spacing */
-    --spacing-sm: 0.5rem; /* Small spacing */
-    --spacing-xm: 0.75rem;
-    --spacing-md: 1rem; /* Medium spacing (default for margins and paddings) */
-    --spacing-lg: 1.5rem; /* Large spacing */
-    --spacing-xl: 2rem; /* Extra large spacing */
-    --spacing-xxl: 3rem; /* Extra extra large spacing */
-  
-    /* Borders and Radius */
-    --border-width: 1px; /* Default border width */
-    --border-style: solid; /* Default border style */
-    --border-radius: 0.25rem; /* Default border radius for rounded corners */
-    --border-radius-lg: 0.5rem; /* Larger border radius for elements like buttons, inputs */
-  
-    /* Box Shadows */
-    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Default box shadow */
-    --box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for hover states */
-  
-    /* Transitions */
-    --transition-default: all 0.3s ease; /* Default transition for hover effects and similar */
-  
-    /* Z-index */
-    --zindex-dropdown: 1000; /* Z-index for dropdown menus */
-    --zindex-sticky: 1020; /* Z-index for sticky elements */
-    --zindex-fixed: 1030; /* Z-index for fixed elements */
-    --zindex-modal-backdrop: 1040; /* Z-index for modal backdrops */
-    --zindex-modal: 1050; /* Z-index for modals */
-    --zindex-popover: 1060; /* Z-index for popovers */
-    --zindex-tooltip: 1070; /* Z-index for tooltips */
-  
-    /* Responsive Breakpoints */
-    --breakpoint-xs: 0; /* Extra small devices (portrait phones) */
-    --breakpoint-sm: 576px; /* Small devices (landscape phones) */
-    --breakpoint-md: 768px; /* Medium devices (tablets) */
-    --breakpoint-lg: 992px; /* Large devices (desktops) */
-    --breakpoint-xl: 1200px; /* Extra large devices (large desktops) */
-  }
+    --accent-color: #182052;
+    --accent-sec-color: #2f256b;
+}
 
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    background-image: linear-gradient(#100D2A,#182052);
+body {
+    background-image: url('./assets/bg.jpg');
     background-repeat: no-repeat;
-    font-family:'Roboto', sans-serif;
-    color:#c4c5c7;
+    background-size: cover;
+    background-position: center;
+    font-family: 'Belanosima', sans-serif;
+    color: #c6c6c6;
+    box-sizing: border-box;
 }
 
-.dropBtn i{
+.dropBtn i {
     transition: all ease 0.2s;
 }
 
-.dropdown:hover .dropContent{
-    display:flex;
+.dropdown:hover .dropContent {
+    display: flex;
     border-top-right-radius: 0rem;
     border-top-left-radius: 0rem;
 }
 
-.dropdown:hover .dropBtn i{
+.dropdown:hover .dropBtn i {
     transform: rotate(45deg);
 }
 
-.dropdown p:hover{
-    color:#ffffff
+.dropdown p:hover {
+    color: #ffffff
 }
 
-.dropContent{
-    display:none;
+.dropContent {
+    display: none;
     position: absolute;
-    width:max-content;
+    width: max-content;
     transform: translateY(0.05rem);
     border-radius: 1rem;
-    padding:2rem;
+    padding: 2rem;
     transition: all ease 0.3s;
 }
 
-.dropContent p{
+.dropContent p {
     cursor: pointer;
+}
+
+.option {
+    border: 0.1rem solid transparent
+}
+
+.option.active {
+    border: 0.1rem solid white
 }

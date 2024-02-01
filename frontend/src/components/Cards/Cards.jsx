@@ -17,7 +17,7 @@ function Cards() {
   }, [])
 
   return (
-    <div className="grid grid-cols-3 gap-[2rem] py-[2rem] px-[14rem] min-h-screen">
+    <div className="grid grid-cols-3 gap-[4rem] py-[2rem] w-[90%] xl:w-[80%] mx-auto min-h-screen">
       {
         quizzes.map((quiz,index) => (
             <Card quiz={quiz} key={index} />

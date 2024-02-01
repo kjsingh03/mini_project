@@ -21,7 +21,7 @@ export default function Card({ quiz }) {
                 <p className="">Grade : {quiz.startGrade}-{quiz.endGrade}</p>
                 <p className="">Level : {quiz.level}</p>
                 <p className='w-full text-center'>
-                    <button className="bg-pink-700 w-max py-2 px-3 cursor-pointer text-white rounded-xl" onClick={handleClick}>Play</button>
+                    <button className="bg-pink-600 hover:bg-pink-700 active:bg-pink-900 w-max py-2 px-3 cursor-pointer text-white rounded-xl" onClick={handleClick}>Play</button>
                 </p>
             </div>
         </div>
