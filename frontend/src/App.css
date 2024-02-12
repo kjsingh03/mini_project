@@ -9,7 +9,8 @@
     box-sizing: border-box;
 }
 
-body {
+body,#root {
+    width:100%;
     background-image: url('./assets/bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;

@@ -19,7 +19,8 @@ const quizSchema= new Schema({
     endGrade:{type:Number,required:[true,"Enter End Grade"]},
     level:{type:String,required:[true,"Enter Quiz Level"]}, //,enum:["Beginner","Intermediate","Advanced"]
     questions:[questionSchema],
-    thumbnail:{ type:String, required:true}
+    thumbnail:{ type:String, required:true},
+    pointsScored:{type:Number,default:0}
 })
 
 export const Option = mongoose.model("Option",optionSchema);

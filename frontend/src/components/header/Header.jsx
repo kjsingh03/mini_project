@@ -1,8 +1,30 @@
 import React from 'react';
 import logo from "./logo1.png"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Header() {
+
+    const navigate = useNavigate();
+
+    const user = JSON.parse(localStorage.getItem("credentials"))?.username ;
+
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        axios.post("http://localhost:5000/auth/logout",{
+            username:user
+        },{
+            headers:{
+                'Content-Type' : 'application/json'
+            }
+        })
+        .then((res)=>{
+            console.log(res.data.message)
+                localStorage.removeItem('credentials')
+                navigate('/login')
+        })
+        .catch(err => console.log(err))
+    }
 
     return (
         <>
@@ -27,8 +49,7 @@ export default function Header() {
                     <div className="hover:text-[#ffffff] cursor-pointer">Contacts</div>
                 </div>
                 <div className="flex justify-end gap-[1rem] w-[25%] items-center">
-                    <div className="cursor-pointer hover:text-white">Log In</div>
-                    <div className="bg-gradient-to-r from-purple-500 to-[#123A99] text-white p-[0.2rem] px-2 cursor-pointer rounded-lg">Sign Up</div>
+                    <div onClick={handleSubmit} className="bg-gradient-to-r from-purple-500 to-[#123A99] text-white p-[0.2rem] px-2 cursor-pointer rounded-lg">Sign Out</div>
                 </div>
             </nav>
         </>
