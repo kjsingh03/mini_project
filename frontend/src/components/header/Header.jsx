@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "./logo1.png"
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,8 +6,24 @@ import axios from 'axios';
 export default function Header() {
 
     const navigate = useNavigate();
+    const [total,setTotal] = useState(0)
 
     const user = JSON.parse(localStorage.getItem("credentials"))?.username ;
+    const userid = JSON.parse(localStorage.getItem("credentials"))?._id ;
+
+    useEffect(()=>{
+            axios.get(`http://localhost:5000/users/${userid}`)
+            .then(res=>{
+                const points =res.data.message.points;
+                let newPoints = 0;
+                points.forEach(quiz=>{
+                    newPoints+=quiz.point
+                })
+
+                setTotal(newPoints)
+                
+            })
+    },[])
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -49,6 +65,10 @@ export default function Header() {
                     <div className="hover:text-[#ffffff] cursor-pointer">Contacts</div>
                 </div>
                 <div className="flex justify-end gap-[1rem] w-[25%] items-center">
+                    <div className="flex gap-2 items-center">
+                        <p>⭐</p>
+                        <p className="text-xs">{total}</p>
+                    </div>
                     <div onClick={handleSubmit} className="bg-gradient-to-r from-purple-500 to-[#123A99] text-white p-[0.2rem] px-2 cursor-pointer rounded-lg">Sign Out</div>
                 </div>
             </nav>

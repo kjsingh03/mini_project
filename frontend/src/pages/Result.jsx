@@ -11,22 +11,21 @@ function Result() {
     const { id } = useParams()
     const navigate = useNavigate()
 
-    useEffect(() => {
-        axios.get(`http://localhost:5000/quiz/${id}`)
-            .then(res => {
-                setPoints(res.data.message.pointsScored)
-                setTotal(res.data.message.questions.length)
-            })
-    }, [])
+    const userid = JSON.parse(localStorage.getItem('credentials'))?._id
+
+    const activePoints = useSelector(state => state.quiz.activePoints)
+
+
 
     return (
         <div className="min-h-screen flex justify-center">
             <div className="flex flex-col gap-4 items-center">
                 <div className="border-4 border-double border-yellow-200 rounded-[50%] w-max h-max flex justify-center items-center mt-[5rem] ">
-                    <p className="text-4xl px-12 py-14">{points/25} / {total}</p>
+                    <p className="text-4xl px-12 py-16"> {activePoints/25} / 4</p>
                 </div>
                     <p>Quiz Summary</p>
                     <p>Wanna try again? <span className="underline cursor-pointer" onClick={()=>navigate(`/${id}`)} >click here</span></p>
+                    <p>Go back to <span className="underline cursor-pointer" onClick={()=>navigate(`/`)} >Home</span></p>
                 
             </div>
         </div>

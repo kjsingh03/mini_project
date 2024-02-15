@@ -19,7 +19,7 @@ function Quiz() {
 
     const activePoints = useSelector(state => state.quiz.activePoints)
 
-    console.log(activePoints)
+    const userid = JSON.parse(localStorage.getItem('credentials'))?._id
 
     const getQuiz = () => {
         axios.get(`http://localhost:5000/quiz/${id}`)
@@ -50,16 +50,15 @@ function Quiz() {
         e.preventDefault();
         const active = document.querySelector(".option.active")
         if (active) {
-            if (active.id === correctOption._id) {
+            if (active.id === correctOption?._id) {
                 dispatch(setActivePoints(activePoints + 25))
             }
         }
 
-        axios.put(`http://localhost:5000/quiz/${id}`, {
-            "pointsScored": active?.id === correctOption._id?activePoints + 25:activePoints
+        axios.put(`http://localhost:5000/users/${userid}`, {
+            "id":id,
+            "point":activePoints
         })
-
-        dispatch(setActivePoints(0))
 
         navigate(`/${id}/result`)
     }
@@ -80,8 +79,6 @@ function Quiz() {
             document.querySelector(".option.active").classList.remove("active")
         document.getElementById(`${id}`).classList.add("active")
     }
-
-    console.log(activePoints)
 
     useEffect(() => {
         getQuiz()

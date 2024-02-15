@@ -4,21 +4,27 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import fs from "fs"
 import path from 'path'
+import { Quiz } from '../models/quiz.js';
+
 
 const privateKey = fs.readFileSync(path.join(path.resolve(), "../backend/private.key"), "utf-8");
 
 export const signup = async (req, res, next) => {
     try {
-        const user = new User(req.body);
-        jwt.sign({ username:user.username }, privateKey, { algorithm: 'RS256' }, function (err, token) {
+        let user = new User(req.body);
+        jwt.sign({ username: user.username }, privateKey, { algorithm: 'RS256' }, function (err, token) {
             user.save()
                 .then(() => {
-                    bcrypt.hash(user.password, 10, function (err, hash) {
+                    bcrypt.hash(user.password, 10, async function (err, hash) {
                         user.password = hash
                         user.token = token
+                        const quizzes = await Quiz.find()
+                        quizzes.forEach(quiz => {
+                            user.points.push({ id: quiz.id ,point:0})
+                        })
                         user.save()
-                            .then(()=> res.status(201).json({ "Success": "Account created successfully", "message": user }))
-                       
+                            .then(() => res.status(201).json({ "Success": "Account created successfully", "message": user }))
+
                     });
                 })
                 .catch((err) => res.status(404).json({ "Success": "False", "message": err.message }))
